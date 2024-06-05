@@ -37,6 +37,8 @@ app.get('/',(request,response)=>{
 //api endpoints
 app.use('/api',router)
 
+
+
 connectDB().then(()=>{
     console.log("Server connected to the mongoDB server");
     console.log(allowedOrigin);
