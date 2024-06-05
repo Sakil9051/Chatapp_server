@@ -3,7 +3,15 @@ const UserModel = require("../models/UserModel")
 
 async function updateUserDetails(request,response){
     try {
-        const token = request.cookies.token || ""
+        const authHeader = request.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({
+                message: "Authorization header missing or malformed",
+                error: true
+            });
+        }
+
+        const token = authHeader.split(' ')[1];
 
         const user = await getUserDetailsFromToken(token)
 
